@@ -7,13 +7,21 @@
     "test": "nodemon server.js",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Marcosmh0199/gym-web-backend.git"
+  },
   "keywords": [
     "gym",
     "api"
   ],
-  "engines" : {
-    "node" : "14.x"
+  "engines": {
+    "node": "14.x"
   },
   "author": "marcos",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
 }
