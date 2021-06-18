@@ -1,22 +1,22 @@
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('ctServicios', {
+  return sequelize.define('Portafolios', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    nombre: {
-      type: DataTypes.STRING(30),
+    fechaInicio: {
+      type: DataTypes.DATE,
       allowNull: false
     },
-    descripcion: {
-      type: DataTypes.STRING(100),
-      allowNull: true
+    fechaFin: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
   },
   {
-    tableName: 'ctServicios',
+    tableName: 'Portafolios',
     timestamps: true
   });
 };
