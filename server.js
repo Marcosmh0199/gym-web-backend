@@ -1,6 +1,7 @@
 const express = require("express");
 var cors = require('cors');
 const app = express();
+const db = require("./src/models");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
