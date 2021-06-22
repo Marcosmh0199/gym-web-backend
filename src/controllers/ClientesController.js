@@ -2,6 +2,8 @@ const db = require('../models');
 const { sequelize } = require("../models");
 const { v4: uuidv4 } = require('uuid');
 const Clientes = db.clientes;
+const Horarios = db.Horarios;
+const Clases = db.clases;
 const CONSTANTS = require('../config/constants');
 const { Op } = require('sequelize');
 const { QueryTypes } = require('sequelize'); 
@@ -77,7 +79,7 @@ exports.delete = async (req, res, next) => {
     }
     await _client.destroy({ transaction : transaction });
     await transaction.commit();
-    return res.status(401).send({
+    return res.status(200).send({
       message: `Cliente eliminado.`
     });
   } catch (error) {
@@ -85,6 +87,22 @@ exports.delete = async (req, res, next) => {
       message: `Error al eliminar el cliente: ${error.stack}`
     });
     next(error);
+  }
+}
+
+exports.getHorarios = async (req, res, next) => {
+  try {
+    let _horarios = await Horarios.findAll();
+    for(let h of _horarios){
+      h.dataValues.clases = await Clases.findAll({ where : { HorarioId : h.id } });
+    }
+    return res.status(200).send({
+      Horarios: _horarios
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al obtener los horarios: ${error.stack}`
+    });
   }
 }
 
@@ -115,7 +133,7 @@ async function updateClient(body, _client, transaction){
       nombre : body.nombre,
       celular : body.celular,
       correo : body.correo,
-      alDia : body.alDia, //true?
+      alDia : true,
       enfermedades : body.enfermedades,
       medicamentos : body.medicamentos,
       contactosEmergencia : body.contactosEmergencia

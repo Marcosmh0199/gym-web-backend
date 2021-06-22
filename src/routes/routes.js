@@ -19,6 +19,7 @@ module.exports = app => {
   router.post('/clientes/read', clients.get);
   router.post('/clientes/update', clients.update);
   router.post('/clientes/delete', clients.delete);
+  router.get('/clientes/horarios/read', validateToken, clients.getHorarios);
   
   //Administradores
   router.post('/administradores/create', admins.create);
