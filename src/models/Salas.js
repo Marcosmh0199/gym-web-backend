@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     servicios: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true
     }
   },

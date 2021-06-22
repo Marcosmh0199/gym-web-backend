@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "ec2-3-212-75-25.compute-1.amazonaws.com",
-  USER: "eccgdbavtjrjvc",
-  PASSWORD: "2e9be62a1003d5e3f31a737f75c7de9b08c17f0a0dac4fb23bcf1f90ca88155d",
-  DB: "d55k37rnpfsui1",
+  HOST: "ec2-54-145-224-156.compute-1.amazonaws.com",
+  USER: "saityqiteiimom",
+  PASSWORD: "dd4ce2a3dc2df7bf324b1f58cda68063b9ef5a47b133fbd7630a7da5db4bb172",
+  DB: "db7lebtn8og8m6",
   dialect: "postgres",
   dialectOptions: {
     ssl: {
