@@ -28,9 +28,11 @@ module.exports = app => {
 
   //Instructores
   router.post('/instructores/create', instructors.create);
-  router.post('/instructores/read', instructors.get);
-  router.post('/instructores/update', instructors.update);
+  router.post('/instructores/read', validateToken, instructors.get);
+  router.post('/instructores/update', validateToken, instructors.update);
   router.post('/instructores/delete', instructors.delete);
+  router.post('/instructores/horarios/create', validateToken, instructors.createHorario);
+  router.post('/instructores/clases/create', validateToken, instructors.createClase);
 
   //Catalogos
   router.get('/catalogos/especialidades', catalogs.getEspecialidades);

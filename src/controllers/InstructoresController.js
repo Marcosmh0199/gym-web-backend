@@ -2,9 +2,11 @@ const db = require('../models');
 const { sequelize } = require("../models");
 const { v4: uuidv4 } = require('uuid');
 const Instructores = db.instructores;
+const Horarios = db.Horarios;
 const CONSTANTS = require('../config/constants');
 const { Op } = require('sequelize');
 const { QueryTypes } = require('sequelize'); 
+const Clases = db.clases;
 
 exports.create = async (req, res, next) => {
   const transaction = await sequelize.transaction();
@@ -77,12 +79,58 @@ exports.delete = async (req, res, next) => {
     }
     await _instructor.destroy({ transaction : transaction });
     await transaction.commit();
-    return res.status(401).send({
+    return res.status(200).send({
       message: `Instructor eliminado.`
     });
   } catch (error) {
     res.status(500).send({
       message: `Error al eliminar el instructor: ${error.stack}`
+    });
+    next(error);
+  }
+}
+
+exports.createHorario = async (req, res, next) => {
+  try {
+    let fechaInicio = new Date();
+    let fechaFin = new Date();
+    fechaFin.setMonth(fechaInicio.getMonth()+1);
+    let _horario = await Horarios.create({
+      fechaInicio : fechaInicio,
+      fechaFin : fechaFin,
+      InstructoreCedula : req.decoded.user
+    });
+    return res.status(200).send({
+      message: `Horario creado.`,
+      horario: _horario
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al crear el horario: ${error.stack}`
+    });
+    next(error);
+  }
+}
+
+exports.createClase = async (req, res, next) => {
+  try {
+    let _clase = await Clases.create({
+      dia : req.body.dia,
+      horaInicio : req.body.horaInicio,
+      horaFin : req.body.horaFin,
+      SesioneId : req.body.sesionId,
+      InstructoreCedula : req.decoded.user,
+      SesioneId : req.body.sesionId,
+      HorarioId : req.body.horarioId,
+      ctServicioId : req.body.ctServicioId
+    });
+    return res.status(200).send({
+      message: `Clase agregada al horario.`,
+      clase: _clase
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al crear la clase: ${error.stack}`
     });
     next(error);
   }
