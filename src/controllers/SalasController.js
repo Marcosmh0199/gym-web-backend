@@ -9,7 +9,7 @@ const { QueryTypes } = require('sequelize');
 exports.create = async (req, res, next) => {
   const transaction = await sequelize.transaction();
   try {
-    body.user = req.decoded.user;
+    req.body.user = req.decoded.user;
     let _sala = await createSala(req.body, transaction);
     await transaction.commit();
     return res.status(200).send({
@@ -49,8 +49,8 @@ exports.update = async (req, res, next) => {
     _sala = await updateSala(req.body, _sala, transaction);
     await transaction.commit();
     return res.status(200).send({
-      message: 'Información del administrador actualizada.',
-      administrador: _sala
+      message: 'Información de la sala actualizada.',
+      sala: _sala
     });
   } catch (error) {
     transaction.rollback();
@@ -90,11 +90,12 @@ async function createSala(body, transaction) {
     }
     let _sala = await Salas.create({
       nombre : body.nombre,
-      capacidadMax : body.capacidadMax,
+      capacidadMaxima : body.capacidadMaxima,
       costo : body.costo,
-      cedulaAdministrador : body.user,
+      AdministradoreCedula : body.user,
       servicios: _servicios
-    }, { transaction : transaction })
+    }, { transaction : transaction });
+    return _sala.dataValues;
   } catch (error) {
     return error;
   }
@@ -102,16 +103,20 @@ async function createSala(body, transaction) {
 
 async function updateSala(body, _sala, transaction){
   try {
+    let _servicios = [];
+    for(const s of body.servicios){
+      _servicios.push(s.id);
+    }
     let _newSala =
     {
       nombre : body.nombre,
-      capacidadMax : body.capacidadMax,
+      capacidadMaxima : body.capacidadMaxima,
       costo : body.costo,
       servicios: _servicios
     };
     Object.assign(_sala, _newSala);
-    await _newSala.save({ transaction: transaction });
-    return _newSala.dataValues;
+    await _sala.save({ transaction: transaction });
+    return _sala.dataValues;
   } catch (error) {
     return error;
   }

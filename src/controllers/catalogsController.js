@@ -15,7 +15,7 @@ exports.getEspecialidades = async (req, res, next) => {
       especialidades : _especialidades,
     });
   } catch (error) {
-    return res.status(400).send({
+    return res.status(500).send({
       msg : `Error al recuperar las especialidades: ${error.stack}`,
     });
   }
@@ -28,7 +28,7 @@ exports.getServicios = async (req, res, next) => {
       servicios : _servicios,
     });
   } catch (error) {
-    return res.status(400).send({
+    return res.status(500).send({
       msg : `Error al recuperar los servicios: ${error.stack}`,
     });
   }
@@ -41,7 +41,7 @@ exports.getTipoPagos = async (req, res, next) => {
       TipoPagos : _tipoPagos,
     });
   } catch (error) {
-    return res.status(400).send({
+    return res.status(500).send({
       msg : `Error al recuperar los tipo de pagos: ${error.stack}`,
     });
   }
