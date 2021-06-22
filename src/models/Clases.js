@@ -10,16 +10,16 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING(30),
       allowNull: true,
     },
-    fechaInicio: {
-      type: DataTypes.DATE,
+    dia: {
+      type: DataTypes.STRING(30),
       allowNull: false
     },
-    fechaFin: {
-      type: DataTypes.DATE,
+    horaInicio: {
+      type: DataTypes.STRING(30),
       allowNull: false
     },
-    aforo: {
-      type: DataTypes.DECIMAL(10,2),
+    horaFin: {
+      type: DataTypes.STRING(30),
       allowNull: false
     }
   },

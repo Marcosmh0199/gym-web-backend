@@ -25,7 +25,7 @@ db.ctServicios = require('./ctServicios')(sequelize, Sequelize);
 db.ctTipoPagos = require('./ctTipoPagos')(sequelize, Sequelize);
 db.instructores = require('./Instructores')(sequelize, Sequelize);
 db.pagos = require('./Pagos')(sequelize, Sequelize);
-db.portafolios = require('./Portafolios')(sequelize, Sequelize);
+db.Horarios = require('./Horarios')(sequelize, Sequelize);
 db.reservaciones = require('./Reservaciones')(sequelize, Sequelize);
 db.salas = require('./Salas')(sequelize, Sequelize);
 db.sesiones = require('./Sesiones')(sequelize, Sequelize);
@@ -54,12 +54,12 @@ db.instructores.belongsTo(db.salas);
 db.pagos.belongsTo(db.reservaciones);
 db.ctTipoPagos.hasMany(db.pagos);
 
-//Portafolios
-db.portafolios.belongsTo(db.instructores);
-db.clases.hasMany(db.portafolios);
+//Horarios
+db.Horarios.belongsTo(db.instructores, { onDelete: 'cascade' });
+db.Horarios.hasMany(db.clases, { onDelete: 'cascade' });
 
 //Reservaciones
-db.reservaciones.belongsTo(db.clientes);
+db.reservaciones.belongsTo(db.clientes, { onDelete: 'cascade' });
 db.sesiones.hasMany(db.reservaciones);
 
 //Salas
