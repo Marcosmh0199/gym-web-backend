@@ -1,21 +1,26 @@
+const validateToken = require("../middleware/authMiddleware").validateToken;
+
 module.exports = app => {
   var router = require("express").Router();
 
+  const auth = require('../controllers/AuthController');
   const clients = require('../controllers/ClientesController');
   const admins = require('../controllers/AdministradoresController');
   const instructors = require('../controllers/InstructoresController');
   const catalogs = require('../controllers/catalogsController')
   
+  //Login
+  router.post('/auth/login', auth.login);
+
   //Clientes
   router.post('/clientes/create', clients.create);
   router.post('/clientes/read', clients.get);
   router.post('/clientes/update', clients.update);
   router.post('/clientes/delete', clients.delete);
   
-
   //Administradores
   router.post('/administradores/create', admins.create);
-  router.post('/administradores/read', admins.get);
+  router.post('/administradores/read', validateToken, admins.get);
   router.post('/administradores/update', admins.update);
   router.post('/administradores/delete', admins.delete);
 

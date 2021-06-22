@@ -20,6 +20,10 @@ module.exports = function (sequelize, DataTypes) {
     especialidades: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true
+    },
+    contrasenia: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   },
   {
