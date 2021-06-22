@@ -37,6 +37,7 @@ db.sesiones = require('./Sesiones')(sequelize, Sequelize);
 //Clases
 db.ctServicios.hasMany(db.clases);
 db.instructores.hasMany(db.clases, { onDelete: 'cascade' });
+db.clases.belongsTo(db.sesiones, { onDelete: 'cascade' });
 
 //Clientes
 
