@@ -32,6 +32,10 @@ module.exports = function (sequelize, DataTypes) {
     contactosEmergencia: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: true
+    },
+    contrasenia: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   },
   {
