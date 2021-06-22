@@ -35,9 +35,18 @@ module.exports = app => {
   router.post('/instructores/clases/create', validateToken, instructors.createClase);
 
   //Catalogos
+    //Especialidades
   router.get('/catalogos/especialidades', catalogs.getEspecialidades);
+  router.post('/catalogos/especialidades/create',catalogs.createEspecialidades);
+  router.post('/catalogos/especialidades/delete',catalogs.deleteEspecialidades);
+    //Servicios
   router.get('/catalogos/servicios', catalogs.getServicios);
+  router.post('/catalogos/servicios/create',catalogs.createServicios);
+  router.post('/catalogos/servicios/delete',catalogs.deleteServicios);
+    //Tipo de pagos
   router.get('/catalogos/tipoPagos', catalogs.getTipoPagos);
+  router.post('/catalogos/tipoPagos/create',catalogs.createTipoPagos);
+  router.post('/catalogos/tipoPagos/delete',catalogs.deleteTipoPagos);
 
   //Salas
   router.post('/salas/create', validateToken, salas.create);
