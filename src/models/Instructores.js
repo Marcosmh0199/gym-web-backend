@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     especialidades: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true
     }
   },
