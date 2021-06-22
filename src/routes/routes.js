@@ -21,6 +21,7 @@ module.exports = app => {
   router.post('/clientes/delete', clients.delete);
   router.get('/clientes/horarios/read', validateToken, clients.getHorarios);
   router.get('/clientes/pagosAlDia', validateToken, clients.getAlDia);
+  router.post('/clientes/reservar', validateToken, clients.reservar);
   
   //Administradores
   router.post('/administradores/create', admins.create);

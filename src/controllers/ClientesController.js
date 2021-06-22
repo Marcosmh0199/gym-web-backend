@@ -3,6 +3,7 @@ const { sequelize } = require("../models");
 const { v4: uuidv4 } = require('uuid');
 const Clientes = db.clientes;
 const Horarios = db.Horarios;
+const Reservaciones = db.reservaciones;
 const Clases = db.clases;
 const CONSTANTS = require('../config/constants');
 const { Op } = require('sequelize');
@@ -115,6 +116,30 @@ exports.getAlDia = async (req, res, next) => {
   } catch (error) {
     res.status(500).send({
       message: `Error al obtener los horarios: ${error.stack}`
+    });
+  }
+}
+
+exports.reservar = async (req, res, next) => {
+  const transaction = await sequelize.transaction();
+  try {
+    let _reserva = await Reservaciones.create({
+      ClienteCedula : req.decoded.user,
+      SesioneId : req.body.sesionId,
+      pagada: false
+    }, { transaction : transaction });
+    let _client = await Clientes.findByPk(req.decoded.user);
+    _client.alDia = false;
+    await _client.save({ transaction : transaction });
+    await transaction.commit();
+    return res.status(200).send({
+      message: 'Reserva realizada.',
+      reserva: _reserva,
+      cliente: _client
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al realizar la reserva: ${error.stack}`
     });
   }
 }
