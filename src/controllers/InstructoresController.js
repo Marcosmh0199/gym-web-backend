@@ -136,6 +136,23 @@ exports.createClase = async (req, res, next) => {
   }
 }
 
+exports.sustituir = async (req, res, next) => {
+  try {
+    let _clase = await Clases.findByPk(req.body.id);
+    _clase.instructor = req.body.instructor;
+    await _clase.save();
+    return res.status(200).send({
+      message: `Se ha agregado al instructor sustituto.`,
+      clase: _clase
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al sustituir instructor: ${error.stack}`
+    });
+    next(error);
+  }
+}
+
 async function createInstructor(body, transaction){
   try {
     let _especialidades = [];
