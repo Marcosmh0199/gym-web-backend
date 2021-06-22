@@ -9,6 +9,7 @@ module.exports = app => {
   const instructors = require('../controllers/InstructoresController');
   const catalogs = require('../controllers/catalogsController')
   const salas = require('../controllers/SalasController');
+  const sesiones = require('../controllers/SesionesController');
   
   //Login
   router.post('/auth/login', auth.login);
@@ -41,6 +42,12 @@ module.exports = app => {
   router.post('/salas/read', validateToken, salas.get);
   router.post('/salas/update', validateToken, salas.update);
   router.post('/salas/delete', validateToken, salas.delete);
+
+  //Sesiones
+  router.post('/sesiones/create', validateToken, sesiones.create);
+  router.post('/sesiones/read', validateToken, sesiones.get);
+  router.post('/sesiones/update', validateToken, sesiones.update);
+  router.post('/sesiones/delete', validateToken, sesiones.delete);
 
   app.use('', router);
 }
