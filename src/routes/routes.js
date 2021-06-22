@@ -20,6 +20,7 @@ module.exports = app => {
   router.post('/clientes/update', clients.update);
   router.post('/clientes/delete', clients.delete);
   router.get('/clientes/horarios/read', validateToken, clients.getHorarios);
+  router.get('/clientes/pagosAlDia', validateToken, clients.getAlDia);
   
   //Administradores
   router.post('/administradores/create', admins.create);

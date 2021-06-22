@@ -106,6 +106,19 @@ exports.getHorarios = async (req, res, next) => {
   }
 }
 
+exports.getAlDia = async (req, res, next) => {
+  try {
+    let _client = await Clientes.findByPk(req.decoded.user);
+    return res.status(200).send({
+      mensaje: _client.alDia ? 'El cliente está al día con los pagos.' : 'El cliente no está al día con los pagos.'
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al obtener los horarios: ${error.stack}`
+    });
+  }
+}
+
 async function createClient(body, transaction){
   try {
     let _ins = await Clientes.create({
