@@ -16,9 +16,9 @@ module.exports = app => {
 
   //Clientes
   router.post('/clientes/create', clients.create);
-  router.post('/clientes/read', clients.get);
-  router.post('/clientes/update', clients.update);
-  router.post('/clientes/delete', clients.delete);
+  router.post('/clientes/read', validateToken, clients.get);
+  router.post('/clientes/update', validateToken, clients.update);
+  router.post('/clientes/delete', validateToken, clients.delete);
   router.get('/clientes/horarios/read', validateToken, clients.getHorarios);
   router.get('/clientes/pagosAlDia', validateToken, clients.getAlDia);
   router.post('/clientes/reservar', validateToken, clients.reservar);
@@ -28,14 +28,14 @@ module.exports = app => {
   //Administradores
   router.post('/administradores/create', admins.create);
   router.post('/administradores/read', validateToken, admins.get);
-  router.post('/administradores/update', admins.update);
-  router.post('/administradores/delete', admins.delete);
+  router.post('/administradores/update', validateToken, admins.update);
+  router.post('/administradores/delete', validateToken, admins.delete);
 
   //Instructores
   router.post('/instructores/create', instructors.create);
   router.post('/instructores/read', validateToken, instructors.get);
   router.post('/instructores/update', validateToken, instructors.update);
-  router.post('/instructores/delete', instructors.delete);
+  router.post('/instructores/delete', validateToken, instructors.delete);
   router.post('/instructores/horarios/create', validateToken, instructors.createHorario);
   router.post('/instructores/clases/create', validateToken, instructors.createClase);
   router.post('/instructores/sustituir', validateToken, instructors.sustituir);
