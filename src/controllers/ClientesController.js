@@ -5,6 +5,7 @@ const Clientes = db.clientes;
 const Horarios = db.Horarios;
 const Reservaciones = db.reservaciones;
 const Clases = db.clases;
+const Pagos = db.pagos;
 const CONSTANTS = require('../config/constants');
 const { Op } = require('sequelize');
 const { QueryTypes } = require('sequelize'); 
@@ -109,9 +110,9 @@ exports.getHorarios = async (req, res, next) => {
 
 exports.getAlDia = async (req, res, next) => {
   try {
-    let _client = await Clientes.findByPk(req.decoded.user);
+    let _pagoPendiente = await Reservaciones.findOne({ where : { pagada : false, ClienteCedula : req.decoded.user } });
     return res.status(200).send({
-      mensaje: _client.alDia ? 'El cliente está al día con los pagos.' : 'El cliente no está al día con los pagos.'
+      mensaje: !_pagoPendiente ? 'El cliente está al día con los pagos.' : 'El cliente no está al día con los pagos.'
     });
   } catch (error) {
     res.status(500).send({
@@ -144,6 +145,47 @@ exports.reservar = async (req, res, next) => {
   }
 }
 
+exports.morosidades = async (req, res, next) => {
+  try {
+    res.status(200).send({
+      morosidades: await Reservaciones.findAll({ where : { pagada : false, ClienteCedula : req.decoded.user} })
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error al obtener las morosidades: ${error.stack}`
+    });
+  }
+}
+
+exports.pagarReserva = async (req, res, next) => {
+  const transaction = await sequelize.transaction();
+  try {
+    let _pago = await Pagos.create({
+      fecha : new Date(),
+      ReservacioneId : req.body.reservaId,
+      ctTipoPagoId : req.body.tipoPagoId
+    }, { transaction : transaction });
+    let _reserva = await Reservaciones.findByPk(req.body.reservaId);
+    _reserva.pagada = true;
+    await _reserva.save({ transaction : transaction });
+    let _cliente = await Clientes.findByPk(req.decoded.user);
+    let _pagoPendiente = await Reservaciones.findOne({ where : { pagada : false, ClienteCedula : req.decoded.user } });
+    _cliente.alDia = _pagoPendiente ? false : true;
+    await _cliente.save({ transaction : transaction });
+    await transaction.commit();
+    return res.status(200).send({
+      message: 'Pago realizado.',
+      reserva: _reserva,
+      pago: _pago
+    });
+  } catch (error) {
+    transaction.rollback();
+    res.status(500).send({
+      message: `Error al pagar la reserva: ${error.stack}`
+    });
+  }
+}
+
 async function createClient(body, transaction){
   try {
     let _ins = await Clientes.create({
@@ -151,7 +193,7 @@ async function createClient(body, transaction){
       nombre : body.nombre,
       celular : body.celular,
       correo : body.correo,
-      alDia : body.alDia, //true?
+      alDia : true,
       contrasenia : body.contrasenia,
       enfermedades : body.enfermedades,
       medicamentos : body.medicamentos,

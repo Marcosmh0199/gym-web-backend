@@ -22,6 +22,8 @@ module.exports = app => {
   router.get('/clientes/horarios/read', validateToken, clients.getHorarios);
   router.get('/clientes/pagosAlDia', validateToken, clients.getAlDia);
   router.post('/clientes/reservar', validateToken, clients.reservar);
+  router.get('/clientes/morosidades', validateToken, clients.morosidades);
+  router.post('/clientes/pagarReserva', validateToken, clients.pagarReserva)
   
   //Administradores
   router.post('/administradores/create', admins.create);
