@@ -42,7 +42,7 @@ exports.get = async (req, res, next) => {
     res.status(500).send({
       message: `Error al recuperar los clientes: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -65,7 +65,7 @@ exports.update = async (req, res, next) => {
     res.status(500).send({
       message: `Error al actualizar el cliente: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -87,7 +87,7 @@ exports.delete = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar el cliente: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 

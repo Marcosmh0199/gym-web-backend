@@ -36,6 +36,7 @@ module.exports = app => {
   router.post('/instructores/delete', instructors.delete);
   router.post('/instructores/horarios/create', validateToken, instructors.createHorario);
   router.post('/instructores/clases/create', validateToken, instructors.createClase);
+  router.post('/instructores/sustituir', validateToken, instructors.sustituir);
 
   //Catalogos
     //Especialidades

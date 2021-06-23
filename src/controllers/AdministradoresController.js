@@ -39,7 +39,7 @@ exports.get = async (req, res, next) => {
     res.status(500).send({
       message: `Error al recuperar los administradores: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -62,7 +62,7 @@ exports.update = async (req, res, next) => {
     res.status(500).send({
       message: `Error al actualizar el administrador: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -84,7 +84,7 @@ exports.delete = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar el administrador: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 

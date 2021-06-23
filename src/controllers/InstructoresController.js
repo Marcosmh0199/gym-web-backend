@@ -41,7 +41,7 @@ exports.get = async (req, res, next) => {
     res.status(500).send({
       message: `Error al recuperar los instructores: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -64,7 +64,7 @@ exports.update = async (req, res, next) => {
     res.status(500).send({
       message: `Error al actualizar el instructor: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -86,7 +86,7 @@ exports.delete = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar el instructor: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -108,7 +108,7 @@ exports.createHorario = async (req, res, next) => {
     res.status(500).send({
       message: `Error al crear el horario: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -132,7 +132,7 @@ exports.createClase = async (req, res, next) => {
     res.status(500).send({
       message: `Error al crear la clase: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -149,7 +149,7 @@ exports.sustituir = async (req, res, next) => {
     res.status(500).send({
       message: `Error al sustituir instructor: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 

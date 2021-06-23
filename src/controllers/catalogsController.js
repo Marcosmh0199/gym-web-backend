@@ -47,7 +47,7 @@ exports.deleteEspecialidades = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar la especialidad: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -94,7 +94,7 @@ exports.deleteServicios = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar el servicio: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 
@@ -141,7 +141,7 @@ exports.deleteTipoPagos = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar el tipo de pago: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 

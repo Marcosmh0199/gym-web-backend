@@ -78,7 +78,7 @@ exports.delete = async (req, res, next) => {
     res.status(500).send({
       message: `Error al eliminar la sala: ${error.stack}`
     });
-    next(error);
+    
   }
 }
 

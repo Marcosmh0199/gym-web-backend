@@ -43,6 +43,5 @@ exports.login = async (req, res, next) => {
     res.status(500).send({
       message: `Error interno : ${error.message}`
     });
-    return next(error);
   }
 }
